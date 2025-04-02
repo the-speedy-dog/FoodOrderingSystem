@@ -16,11 +16,14 @@ public class Restaurant {
     public void printMenu() {
         for (int i = 0; i < menu.size(); i++) {
             System.out.printf(
-                "%d: %s ($%,.2f)",
+                "%d: %s ($%,.2f)\t\t",
                 i+1,
                 menu.get(i).getName(),
                 menu.get(i).getPrice()
             );
+            if (i % 3 == 0) {
+                System.out.println();
+            }
         }
     }
 }
