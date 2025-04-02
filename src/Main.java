@@ -38,7 +38,10 @@ public class Main {
         System.out.println("Type \"help\" for command list");
         System.out.println();
 
+        // start food ordering system
         start(name, isCustomer, scnr);
+
+        // end swiftly
         scnr.close();
     }
 }
