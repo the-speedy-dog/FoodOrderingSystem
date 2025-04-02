@@ -6,10 +6,6 @@ public class Main {
 
         Scanner scnr = new Scanner(System.in);
 
-        while (true) {
-
-        }
-
         scnr.close();
 
     }
