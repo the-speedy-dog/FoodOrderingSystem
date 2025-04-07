@@ -2,15 +2,28 @@ import java.util.ArrayList;
 
 public class Restaurant {
     private String name;
-    private ArrayList<FoodItem>  menu;
+    private ArrayList<FoodItem> menu;
+    private double rating;
+    private int ratingCount;
 
-    public Restaurant(String name, ArrayList<FoodItem> menu) {
+    public Restaurant(
+        String name,
+        ArrayList<FoodItem> menu,
+        double rating,
+        int ratingCount
+    ) {
         this.name = name;
         this.menu = menu;
+        this.rating = rating;
+        this.ratingCount = ratingCount;
     }
 
     public String getName() {
         return name;
+    }
+    
+    public double getRating() {
+        return rating;
     }
     
     public void printMenu() {
@@ -25,5 +38,10 @@ public class Restaurant {
                 System.out.println();
             }
         }
+    }
+
+    public void rate(double rating) {
+        ratingCount++;
+        this.rating = (this.rating + rating) / ratingCount;
     }
 }

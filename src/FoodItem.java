@@ -10,7 +10,7 @@ public class FoodItem {
     public String getName() {
         return name;
     }
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 }
