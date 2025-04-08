@@ -1,2 +1,2 @@
-public class Driver {
+public class Driver extends User {
 }
