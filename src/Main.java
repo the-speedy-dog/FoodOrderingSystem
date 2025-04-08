@@ -2,11 +2,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void start(String name, boolean isCustomer, Scanner scnr) {
-
-    }
-
     public static void main(String[] args) {
+        Javadash jv = new Javadash();
+        jv.init();
+
         Scanner scnr = new Scanner(System.in);
 
         // get name
@@ -37,9 +36,6 @@ public class Main {
         System.out.printf("Logged in as %s (%s)\n", name, isCustomer ? "Customer" : "Driver");
         System.out.println("Type \"help\" for command list");
         System.out.println();
-
-        // start food ordering system
-        start(name, isCustomer, scnr);
 
         // end swiftly
         scnr.close();

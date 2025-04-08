@@ -34,7 +34,7 @@ public class Restaurant {
                 menu.get(i).getName(),
                 menu.get(i).getPrice()
             );
-            if (i % 3 == 0) {
+            if (i+1 % 3 == 0 || i+1 == menu.size()) {
                 System.out.println();
             }
         }
