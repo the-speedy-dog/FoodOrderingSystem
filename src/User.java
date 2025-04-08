@@ -1,4 +1,6 @@
-package PACKAGE_NAME;
+import java.util.Queue;
 
-public class User {
+public abstract class User {
+    private String name;
+    private Queue<Order> orders;
 }
