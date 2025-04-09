@@ -41,8 +41,7 @@ public class Restaurant {
     }
     
     public void printDetails() {
-        System.out.printf("%s - ★ %.2f (%d)\n", name, rating, ratingCount);
-        printMenu();
+        System.out.printf("%s - ★ %.1f (%,d)\n", name, rating, ratingCount);
     }
 
     public void rate(double rating) {
