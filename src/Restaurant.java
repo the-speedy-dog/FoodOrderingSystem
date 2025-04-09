@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Restaurant {
     private String name;
     private ArrayList<FoodItem> menu;
-    private double rating;
-    private int ratingCount;
+    private Rating rating;
+
 
     public Restaurant(
         String name,
@@ -22,9 +22,6 @@ public class Restaurant {
         return name;
     }
     
-    public double getRating() {
-        return rating;
-    }
     
     public void  printMenu() {
         for (int i = 0; i < menu.size(); i++) {
@@ -44,8 +41,4 @@ public class Restaurant {
         System.out.printf("%s - ★ %.1f (%,d)\n", name, rating, ratingCount);
     }
 
-    public void rate(double rating) {
-        ratingCount++;
-        this.rating = (this.rating + rating) / ratingCount;
-    }
 }
