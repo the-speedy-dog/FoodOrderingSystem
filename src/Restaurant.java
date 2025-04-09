@@ -26,7 +26,7 @@ public class Restaurant {
         return rating;
     }
     
-    public void printMenu() {
+    public void  printMenu() {
         for (int i = 0; i < menu.size(); i++) {
             System.out.printf(
                 "%d: %s ($%,.2f)\t\t",
@@ -34,10 +34,15 @@ public class Restaurant {
                 menu.get(i).getName(),
                 menu.get(i).getPrice()
             );
-            if (i+1 % 3 == 0 || i+1 == menu.size()) {
+            if ((i+1) % 3 == 0 || i+1 == menu.size()) {
                 System.out.println();
             }
         }
+    }
+    
+    public void printDetails() {
+        System.out.printf("%s - ★ %.2f (%d)\n", name, rating, ratingCount);
+        printMenu();
     }
 
     public void rate(double rating) {
