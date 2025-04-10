@@ -34,6 +34,10 @@ public class Restaurant {
         Arrays.fill(charArr, '$');
         return new String(charArr);
     }
+
+    public FoodItem getItem(int itemId) {
+        return menu.get(itemId-1);
+    }
     
     public void  printMenu() {
         for (int i = 0; i < menu.size(); i++) {

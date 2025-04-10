@@ -1,60 +1,71 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Order {
-    private int ID;
-    private String customerName;
-    private String address;
-    private String driverName;
+    private int id;
+    private Customer customer;
+    private Driver driver;
+    private Restaurant restaurant;
+    private int totalItems;
     private double totalPrice;
-    private ArrayList<FoodItem> items;
+    private HashMap<Integer, Integer> items;
 
-    public Order(String customerName, String address) {
-        this.ID = (int)(Math.random() * Integer.MAX_VALUE);
-        this.customerName = customerName;
-        this.address = address;
-        this.driverName = "Not Assigned";
-        this.totalPrice = 0.0;
-        this.items = new ArrayList<>();
+    public Order(int id, Customer customer, Driver driver, Restaurant restaurant) {
+        this.id = id;
+        this.customer = customer;
+        this.driver = driver;
+        this.restaurant = restaurant;
+        totalItems = 0;
+        totalPrice = 0.0;
+        items = new HashMap<>();
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public int getId() {
+        return id;
     }
 
-    public String getAddress() {
-        return address;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setDriverName(String name) {
-        this.driverName = name;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public String getDriverName() {
-        return driverName;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public int getNumItems() {
-        return items.size();
-    }
-
-    public int getID() {
-        return ID;
+    public int getTotalItems() {
+        return totalItems;
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void addItem(FoodItem item) {
-        this.items.add(item);
+    public void addItem(int itemId, int amount) {
+        if (items.containsKey(itemId)) {
+            items.put(itemId, items.get(itemId) + amount);
+        } else {
+            items.put(itemId, amount);
+        }
+        totalPrice += restaurant.getItem(itemId).getPrice() * amount;
+        totalItems += amount;
     }
     
-    public FoodItem removeItem(String name) {
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName() == name) {
-                return items.remove(i);
+    public void removeItem(int itemId, int amount) {
+        if (items.containsKey(itemId)) {
+            double itemPrice = restaurant.getItem(itemId).getPrice();
+            int itemCount = items.get(itemId);
+            if (itemCount <= amount) {
+                items.remove(itemId);
+                totalPrice -= itemPrice * itemCount;
+                totalItems -= itemCount;
+            } else {
+                items.put(itemId, itemCount - amount);
+                totalPrice -= itemPrice * amount;
+                totalItems -= amount;
             }
         }
-        return new FoodItem("Nothing", 0.0);
     }
 }
