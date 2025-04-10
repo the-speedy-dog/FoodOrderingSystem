@@ -56,7 +56,7 @@ public class Restaurant {
             name,
             rating.getRating(),
             rating.getRatingCount(),
-            getPriceRank()
+            getPriceRankString()
         );
     }
 
