@@ -14,8 +14,7 @@ public class Restaurant {
     ) {
         this.name = name;
         this.menu = menu;
-        this.rating = rating;
-        this.ratingCount = ratingCount;
+        this.rating = new Rating(rating, ratingCount);
     }
 
     public String getName() {
@@ -38,7 +37,8 @@ public class Restaurant {
     }
     
     public void printDetails() {
-        System.out.printf("%s - ★ %.1f (%,d)\n", name, rating, ratingCount);
+        System.out.printf("%s - ★ %.1f (%,d)\n", 
+                name, rating.getRating(), rating.getRatingCount());
     }
 
 }

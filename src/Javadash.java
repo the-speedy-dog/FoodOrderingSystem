@@ -28,6 +28,10 @@ public class Javadash {
         System.out.println("Type \"help\" for command list");
         System.out.println();
 
+
+        // We should add a "shutdown" or "cleanup" function
+        System.out.println("Shutting down prematurely because fuck you that's why");
+        
         // end swiftly
         scnr.close();
     }
@@ -36,13 +40,12 @@ public class Javadash {
     private void initRestaurants() {
         ArrayList<FoodItem> novoMenu = new ArrayList<>(
             Arrays.asList(
-                new FoodItem("Big Mac", 8.99),
-                new FoodItem("Big Mac", 8.99),
-                new FoodItem("Big Mac", 8.99),
-                new FoodItem("Big Mac", 8.99),
-                new FoodItem("Big Mac", 8.99),
-                new FoodItem("Big Mac", 8.99),
-                new FoodItem("Big Mac", 8.99)
+                new FoodItem("Big Mac", 3.99),
+                new FoodItem("Medium Mac", 6.99),
+                new FoodItem("Small Mac", 9.99),
+                new FoodItem("Fries", 8.99),
+                new FoodItem("Lies", 8.99),
+                new FoodItem("Apple Pies", 8.99)
             )
         );
         restaurants.add(new Restaurant("Novo", novoMenu, 4.6, 1329));
@@ -70,8 +73,15 @@ public class Javadash {
                 decision = decisionStr.charAt(0);
             }
         }
-        boolean isCustomer = decision == 'c';
+        //boolean isCustomer = decision == 'c';
+        // if (myObj instanceof Customer) -> checking type
 
-        user = isCustomer ? new Customer(name) : new Driver(name);
+        if (decision == 'c') {
+            System.out.print("Enter Delivery Address: ");
+            String address = scnr.nextLine();
+            user = new Customer(name, address);
+        } else {
+            user = new Driver(name);
+        }
     }
 }

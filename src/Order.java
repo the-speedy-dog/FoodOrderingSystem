@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Order {
     private int ID;
     private String customerName;
@@ -40,7 +42,7 @@ public class Order {
     }
 
     public double getTotalPrice() {
-        return totalprice;
+        return totalPrice;
     }
 
     public void addItem(FoodItem item) {
@@ -49,7 +51,7 @@ public class Order {
     
     public FoodItem removeItem(String name) {
         for (int i = 0; i < items.size(); i++) {
-            if (items.getName() == name) {
+            if (items.get(i).getName() == name) {
                 return items.remove(i);
             }
         }
