@@ -3,10 +3,15 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Javadash {
-    private ArrayList<Restaurant> restaurants = new ArrayList<>(); // ???
+    private ArrayList<Restaurant> restaurants; 
+    private Restaurant currRestaurant;
     private User user;
 
     public Javadash() {
+        this.restaurants = new ArrayList<Restaurant>();
+        this.currRestaurant = null;
+        this.user = null;
+
         initRestaurants();
     }
 
@@ -39,7 +44,7 @@ public class Javadash {
             }
         }*/
 
-        System.out.println("Shutting down prematurely because fuck you that's why");
+        System.out.println("\nShutting down prematurely because I said so");
         
         // end swiftly
         scnr.close();
@@ -87,6 +92,8 @@ public class Javadash {
         } else {
             user = new Driver(name);
         }
+
+        // TODO: Select a Restaurant (since we have multiple)
     }
 
     // initialize all restaurants and menus
