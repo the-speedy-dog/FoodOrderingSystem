@@ -23,16 +23,29 @@ public class Restaurant {
     
     
     public void  printMenu() {
+        System.out.println("""
+                ╔══════╗
+                ║>Menu<║
+                ╚══════╝""");
         for (int i = 0; i < menu.size(); i++) {
+            
+            if (i == menu.size()-1) {
+                System.out.print("╚");
+            } else if (i == 0) {
+                System.out.print("╔");
+            } else {
+                System.out.print("╠");
+            }
+
             System.out.printf(
-                "%d: %s ($%,.2f)\t\t",
+                " %d: %s ($%,.2f)\n",
                 i+1,
                 menu.get(i).getName(),
                 menu.get(i).getPrice()
             );
-            if ((i+1) % 3 == 0 || i+1 == menu.size()) {
+            /*if ((i+1) % 3 == 0 || i+1 == menu.size()) {
                 System.out.println();
-            }
+            }*/
         }
     }
     

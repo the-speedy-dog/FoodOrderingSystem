@@ -28,6 +28,8 @@ public class Javadash {
         System.out.println("Type \"help\" for command list");
         System.out.println();
 
+        mcdonalds.printMenu();
+
 
         // We should add a "shutdown" or "cleanup" function
         System.out.println("Shutting down prematurely because fuck you that's why");
