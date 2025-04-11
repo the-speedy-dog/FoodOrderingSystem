@@ -17,7 +17,7 @@ public class Rating {
     }
 
     public int getRatingCount() {
-        return ratingCount;
+        return ratings.size();
     }
 
     public void rate(int rating) {
