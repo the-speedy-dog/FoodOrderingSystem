@@ -61,12 +61,7 @@ public class Restaurant {
                 System.out.print("╠");
             }
 
-            System.out.printf(
-                " %d: %s ($%,.2f)\n",
-                i+1,
-                menu.get(i).getName(),
-                menu.get(i).getPrice()
-            );
+            System.out.println((i+1) + ": " + menu.get(i).toString());
             /*if ((i+1) % 3 == 0 || i+1 == menu.size()) {
                 System.out.println();
             }*/
