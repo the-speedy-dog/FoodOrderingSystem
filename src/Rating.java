@@ -1,16 +1,15 @@
 
+import java.util.Queue;
+
 public class Rating { 
     private double rating;
-    private int ratingCount;
-
-    public Rating(double rating, int ratingCount) {
-        this.rating = rating;
-        this.ratingCount = ratingCount;
-    }
+    private int ratingTotal;
+    private Queue<Integer> ratings;
 
     public Rating() {
         this.rating = 0;
-        this.ratingCount = 0;
+        this.ratingTotal = 0;
+        this.ratings = new Queue<>();
     }
 
     public double getRating() {
@@ -21,7 +20,13 @@ public class Rating {
         return ratingCount;
     }
 
-    public void rate(double rating) {
-        this.rating = ((this.rating * ratingCount) + rating) / ++ratingCount;
+    public void rate(int rating) {
+        if (ratings.size() == 10) {
+            ratingTotal -= ratings.poll();
+        }
+        ratings.add(rating);
+        ratingTotal += rating;
+
+        rating = (double)ratingTotal / ratings.size();
     }
 }

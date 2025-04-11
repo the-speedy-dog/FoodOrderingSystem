@@ -12,6 +12,6 @@ public class Driver extends User {
 
     // SHOULD NOT BE ACCESSIBLE BY DRIVER
     public void addRating(int rating) {
-        this.rating.rate(rating % 5); // Keeps it from 0-5 stars, idk
+        this.rating.rate(Math.clamp(rating, 1, 5));
     }
 }
