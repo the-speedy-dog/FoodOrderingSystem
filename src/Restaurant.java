@@ -1,27 +1,51 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Queue;
 
 public class Restaurant {
     private String name;
     private ArrayList<FoodItem> menu;
     private Rating rating;
+    private int priceRank;
+    private Queue<Order> pendingOrders;
 
 
     public Restaurant(
         String name,
         ArrayList<FoodItem> menu,
         double rating,
-        int ratingCount
+        int ratingCount,
+        int priceRank
     ) {
         this.name = name;
         this.menu = menu;
         this.rating = new Rating(rating, ratingCount);
+        this.priceRank = priceRank;
     }
 
     public String getName() {
         return name;
     }
+
+    public int getPriceRank() {
+        return priceRank;
+    }
+
+    public String getPriceRankString() {
+        char[] charArr = new char[priceRank];
+        Arrays.fill(charArr, '$');
+        return new String(charArr);
+    }
+
+    public FoodItem getItem(int itemId) {
+        return menu.get(itemId-1);
+    }
     
-    
+    public void placeOrder(Order order) { // Assign Driver, etc.
+        pendingOrders.add(order);
+        // TODO IDK WHAT THIS IS
+    }
+
     public void  printMenu() {
         System.out.println("""
                 ╔══════╗
@@ -50,8 +74,13 @@ public class Restaurant {
     }
     
     public void printDetails() {
-        System.out.printf("%s - ★ %.1f (%,d)\n", 
-                name, rating.getRating(), rating.getRatingCount());
+        System.out.printf(
+            "%s - ★ %.1f (%,d) - %s\n", 
+            name,
+            rating.getRating(),
+            rating.getRatingCount(),
+            getPriceRankString()
+        );
     }
 
 }
