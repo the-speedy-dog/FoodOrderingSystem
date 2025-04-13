@@ -4,54 +4,27 @@ import java.util.Scanner;
 
 public class Javadash {
     private ArrayList<Restaurant> restaurants; 
-    private Restaurant currRestaurant;
     private User user;
 
     public Javadash() {
         this.restaurants = new ArrayList<Restaurant>();
-        this.currRestaurant = null;
-        this.user = null;
 
         initRestaurants();
     }
 
     public void start() {
         Restaurant restaurant = restaurants.get(0);
-        restaurant.printDetails();
         restaurant.printMenu();
-
         Scanner scnr = new Scanner(System.in);
+
         initUser(scnr);
-
-        // print info before start
-        System.out.println();
-        System.out.println("Javadash v0.1.0");
-        System.out.printf(
-            "Logged in as %s (%s)\n",
-            user.getName(),
-            user instanceof Customer ? "Customer" : "Driver"
-        );
-        System.out.println("Type \"help\" for command list");
+        printMisc();
         System.out.println();
 
-        restaurant.printMenu();
-
-        /*while (decision != 'c' && decision != 'd') {
-            System.out.print("Customer or Driver? (c/d): ");
-            String decisionStr = scnr.nextLine();
-            if (decisionStr.length() > 0) {
-                decision = decisionStr.charAt(0);
-            }
-        }*/
-
-        System.out.println("\nShutting down prematurely because I said so");
+        System.out.println("Shutting down prematurely because I said so");
         
         // end swiftly
         scnr.close();
-    }
-
-    private void customerMainLoop(Restaurant restaurant) {
-        
     }
     
     // init user
@@ -92,8 +65,17 @@ public class Javadash {
         } else {
             user = new Driver(name);
         }
+    }
 
-        // TODO: Select a Restaurant (since we have multiple)
+    private void printMisc() {
+        System.out.println();
+        System.out.println("Javadash v0.1.0");
+        System.out.printf(
+            "Logged in as %s (%s)\n",
+            user.getName(),
+            user instanceof Customer ? "Customer" : "Driver"
+        );
+        System.out.println("Type \"help\" for command list");
     }
 
     // initialize all restaurants and menus
@@ -118,5 +100,7 @@ public class Javadash {
             )
         );
         restaurants.add(new Restaurant("Novo", novoMenu, 4.6, 1329, 3));
+
+        // TODO: add more restaurants
     }
 }
