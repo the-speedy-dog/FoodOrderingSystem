@@ -7,8 +7,6 @@ public class Restaurant {
     private ArrayList<FoodItem> menu;
     private Rating rating;
     private int priceRank;
-    private Queue<Order> pendingOrders;
-
 
     public Restaurant(
         String name,
@@ -40,40 +38,35 @@ public class Restaurant {
     public FoodItem getItem(int itemId) {
         return menu.get(itemId-1);
     }
-    
-    public void placeOrder(Order order) { // Assign Driver, etc.
-        pendingOrders.add(order);
-        // TODO IDK WHAT THIS IS
-    }
 
     public void  printMenu() {
-        System.out.println("""
-                ╔══════╗
-                ║>Menu<║
-                ╚══════╝""");
+        String details = getDetails();
+        char[] charArr = new char[details.length()];
+        Arrays.fill(charArr, '═');
+        String line = new String(charArr);
+
+        System.out.println("╔═" + line + "═╗");
+        System.out.println("║ " + details + " ║");
+        System.out.println("╚═" + line + "═╝");
+
         for (int i = 0; i < menu.size(); i++) {
-            
-            if (i == menu.size()-1) {
-                System.out.print("╚");
-            } else if (i == 0) {
+            if (i == 0) {
                 System.out.print("╔");
+            }  else if (i == menu.size()-1) {
+                System.out.print("╚");
             } else {
                 System.out.print("╠");
             }
 
-            System.out.println((i+1) + ": " + menu.get(i).toString());
-            /*if ((i+1) % 3 == 0 || i+1 == menu.size()) {
-                System.out.println();
-            }*/
+            System.out.println((i < 9 ? "═" : "") + (i+1) + ": " + menu.get(i).toString());
         }
     }
     
-    public void printDetails() {
-        System.out.printf(
-            "%s - ★ %.1f (%,d) - %s\n", 
+    public String getDetails() {
+        return String.format(
+            "%s | ★ %.1f | %s",
             name,
             rating.getRating(),
-            rating.getRatingCount(),
             getPriceRankString()
         );
     }
