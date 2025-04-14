@@ -1,7 +1,7 @@
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Handler {
-    HashMap<String, Runnable> commands = new HashMap<>();
+    ArrayList<Command> commands = new ArrayList<>();
 
     public void loop() {
     }
