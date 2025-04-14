@@ -5,10 +5,9 @@ import java.util.Scanner;
 public class Javadash {
     private ArrayList<Restaurant> restaurants; 
     private User user;
+    private Handler handler;
 
     public Javadash() {
-        this.restaurants = new ArrayList<Restaurant>();
-
         initRestaurants();
     }
 
@@ -21,8 +20,6 @@ public class Javadash {
         printMisc();
         System.out.println();
 
-        System.out.println("Shutting down prematurely because I said so");
-        
         // end swiftly
         scnr.close();
     }
@@ -79,7 +76,10 @@ public class Javadash {
     }
 
     // initialize all restaurants and menus
+    // TODO: add more restaurants
     private void initRestaurants() {
+        restaurants = new ArrayList<Restaurant>();
+
         ArrayList<FoodItem> novoMenu = new ArrayList<>(
             Arrays.asList(
                 new FoodItem("House Salad", 9.00),
@@ -100,7 +100,5 @@ public class Javadash {
             )
         );
         restaurants.add(new Restaurant("Novo", novoMenu, 4.6, 1329, 3));
-
-        // TODO: add more restaurants
     }
 }
