@@ -1,14 +1,15 @@
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class Command {
     private ArrayList<String> names;
     private String description;
-    private Runnable action;
+    private Consumer<Object[]> action;
 
     public Command(
         ArrayList<String> names,
         String description,
-        Runnable action
+        Consumer<Object[]> action
     ) {
         this.names = names;
         this.description = description;
@@ -39,7 +40,7 @@ public class Command {
         return false;
     }
 
-    public void run() {
-        action.run();
+    public void run(Object... params) {
+        action.accept(params);
     }
 }

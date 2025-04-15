@@ -20,6 +20,10 @@ public class Javadash {
         printMisc();
         System.out.println();
 
+        // command handler loop
+        handler = new Handler(scnr);
+        handler.loop();
+
         // end swiftly
         scnr.close();
     }
