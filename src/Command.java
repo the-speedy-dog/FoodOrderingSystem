@@ -52,9 +52,9 @@ public class Command {
                     j == mod.size()-1 ? "" : ", "
                 );
             }
-            System.out.printf(">%s", i == modifiers.size()-1 ? "\n" : " ");
+            System.out.printf(">%s", i == modifiers.size()-1 ? "" : " ");
         }
-        System.out.println(" - " + description);
+        System.out.println("\n - " + description);
     }
 
     public boolean includes(String name) {
