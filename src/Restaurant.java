@@ -16,7 +16,7 @@ public class Restaurant {
     ) {
         this.name = name;
         this.menu = menu;
-        this.rating = new Rating(rating, ratingCount);
+        this.rating = new Rating();
         this.priceRank = priceRank;
     }
 
