@@ -35,6 +35,7 @@ public class Command {
     }
 
     public void printDetails() {
+        // Print out command's aliases
         for (int i = 0; i < names.size(); i++) {
             System.out.printf(
                 "%s%s",
@@ -42,6 +43,7 @@ public class Command {
                 i == names.size()-1 ? " " : ", "
             );
         }
+        // Print out modifiers and their options in brackets
         for (int i = 0; i < modifiers.size(); i++) {
             ArrayList<String> mod = modifiers.get(i);
             System.out.print("<");
@@ -67,6 +69,11 @@ public class Command {
     }
 
     public void run(String... params) {
-        action.accept(params);
+        try{
+            action.accept(params);
+        } catch (Exception e) {
+            System.out.println("Invalid Arguments!");
+            printDetails();
+        }
     }
 }

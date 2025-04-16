@@ -53,7 +53,7 @@ public class Order {
         this.totalItems = 0;
         this.totalPrice = 0.0;
         this.items = new HashMap<>();
-        this.status = IN_CART;
+        this.status = Status.IN_CART;
     }
 
     public int getId() {

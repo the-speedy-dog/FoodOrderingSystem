@@ -21,10 +21,19 @@ public class Handler {
         );
     }
 
+    public void addCommands(ArrayList<Command> newCommands) {
+        for (Command command : newCommands) {
+            this.commands.add(command);
+        }
+    }
+
+
     private void help() {
+        System.out.println();
         for (Command cmd : commands) {
             cmd.printDetails();
         }
+        System.out.println();
     }
 
     private void quit() {
@@ -32,6 +41,8 @@ public class Handler {
     }
 
     public void loop() {
+
+        
 
         // add quit command here so it appears last
         commands.add(
@@ -55,7 +66,11 @@ public class Handler {
 
             for (Command cmd : commands) {
                 if (cmd.includes(command)) {
-                    cmd.run(args);
+                    try {
+                        cmd.run(args);
+                    } catch (Exception e) {
+
+                    }
                 }
             }
         }

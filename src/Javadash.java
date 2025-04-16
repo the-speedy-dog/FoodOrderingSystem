@@ -23,15 +23,15 @@ public class Javadash {
         // command handler loop
         handler = new Handler(scnr);
 
-        // testing handler commands
-        handler.commands.add(
+        // Passes a list of commands to Handler class to be processed
+        handler.addCommands(new ArrayList<Command>(Arrays.asList(
+            /// Restaurant
             new Command(
                 new ArrayList<String>(Arrays.asList("restaurant", "res")),
                 "Print speicified restaurant's menu",
                 obj -> restaurantCommand((String[]) obj)
-            )
-        );
-        handler.commands.add(
+            ),
+            /// Cart
             new Command(
                 new ArrayList<String>(Arrays.asList("cart", "c")),
                 new ArrayList<ArrayList<String>>(
@@ -49,8 +49,14 @@ public class Javadash {
                 ),
                 "Cart command, more to add",
                 obj -> cartCommand((String[]) obj)
+            ),
+            /// Clear 
+            new Command(
+                new ArrayList<String>(Arrays.asList("clear", "cls")),
+                "Clears the screen",
+                obj -> clearCommand()
             )
-        );
+        )));
 
         handler.loop();
 
@@ -162,15 +168,29 @@ public class Javadash {
     }
 
     private void cartCommand(String[] args) {
+        Customer customer = (Customer) user;
+        if (args.length == 0) {
+            System.out.println(customer.getCart().toString());
+            return;
+        }
+        
+        // Unhandled Input
+        throw new IllegalArgumentException(":(");
+    }
+
+
+    private void clearCommand() {
         try {
-            Customer customer = (Customer) user;
-            if (args.length == 0) {
-                System.out.println(customer.getCart().toString());
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("error");
+            // Runtime.getRuntime().exec("clear");
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            printMisc();
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println("Could not clear screen!");
         }
     }
+
     
     /////////////////////////
     // COMMAND METHODS END //
