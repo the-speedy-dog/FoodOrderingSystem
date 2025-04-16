@@ -12,12 +12,6 @@ public class Rating {
         ratings = new LinkedList<>();
     }
 
-    public Rating(double rating, int ratingTotal) {
-        this.rating = rating;
-        this.ratingTotal = ratingTotal;
-        ratings = new LinkedList<>();
-    }
-
     public double getRating() {
         return rating;
     }
