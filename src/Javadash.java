@@ -4,56 +4,60 @@ import java.util.Scanner;
 
 public class Javadash {
     private ArrayList<Restaurant> restaurants; 
-    private Restaurant currRestaurant;
     private User user;
+    private Handler handler;
 
     public Javadash() {
-        this.restaurants = new ArrayList<Restaurant>();
-        this.currRestaurant = null;
-        this.user = null;
-
         initRestaurants();
     }
 
     public void start() {
         Restaurant restaurant = restaurants.get(0);
-        restaurant.printDetails();
         restaurant.printMenu();
-
         Scanner scnr = new Scanner(System.in);
+
         initUser(scnr);
-
-        // print info before start
+        printMisc();
         System.out.println();
-        System.out.println("Javadash v0.1.0");
-        System.out.printf(
-            "Logged in as %s (%s)\n",
-            user.getName(),
-            user instanceof Customer ? "Customer" : "Driver"
+
+        // command handler loop
+        handler = new Handler(scnr);
+
+        // testing handler commands
+        handler.commands.add(
+            new Command(
+                new ArrayList<String>(Arrays.asList("restaurant", "res")),
+                "Print speicified restaurant's menu",
+                obj -> restaurantCommand((String[]) obj)
+            )
         );
-        System.out.println("Type \"help\" for command list");
-        System.out.println();
+        handler.commands.add(
+            new Command(
+                new ArrayList<String>(Arrays.asList("cart", "c")),
+                new ArrayList<ArrayList<String>>(
+                    Arrays.asList(
+                        new ArrayList<String>(
+                            Arrays.asList("add", "rm")
+                        ),
+                        new ArrayList<String>(
+                            Arrays.asList("item_id")
+                        ),
+                        new ArrayList<String>(
+                            Arrays.asList("count")
+                        )
+                    )
+                ),
+                "Cart command, more to add",
+                obj -> cartCommand((String[]) obj)
+            )
+        );
 
-        restaurant.printMenu();
+        handler.loop();
 
-        /*while (decision != 'c' && decision != 'd') {
-            System.out.print("Customer or Driver? (c/d): ");
-            String decisionStr = scnr.nextLine();
-            if (decisionStr.length() > 0) {
-                decision = decisionStr.charAt(0);
-            }
-        }*/
-
-        System.out.println("\nShutting down prematurely because I said so");
-        
         // end swiftly
         scnr.close();
     }
 
-    private void customerMainLoop(Restaurant restaurant) {
-        
-    }
-    
     // init user
     private void initUser(Scanner scnr) {
         // get name
@@ -92,12 +96,24 @@ public class Javadash {
         } else {
             user = new Driver(name);
         }
+    }
 
-        // TODO: Select a Restaurant (since we have multiple)
+    private void printMisc() {
+        System.out.println();
+        System.out.println("Javadash v0.1.0");
+        System.out.printf(
+            "Logged in as %s (%s)\n",
+            user.getName(),
+            user instanceof Customer ? "Customer" : "Driver"
+        );
+        System.out.println("Type \"help\" for command list");
     }
 
     // initialize all restaurants and menus
+    // TODO: add more restaurants
     private void initRestaurants() {
+        restaurants = new ArrayList<Restaurant>();
+
         ArrayList<FoodItem> novoMenu = new ArrayList<>(
             Arrays.asList(
                 new FoodItem("House Salad", 9.00),
@@ -119,4 +135,44 @@ public class Javadash {
         );
         restaurants.add(new Restaurant("Novo", novoMenu, 4.6, 1329, 3));
     }
+
+    ///////////////////////////
+    // COMMAND METHODS START //
+    ///////////////////////////
+
+    private void restaurantCommand(String[] args) {
+
+        // could try catch every function that could break
+        // for better errors or could wrap it all in try catch
+        // like what i currently have, but will not give more
+        // info than either missing args or incorrect input types
+        try {
+            int resId = Integer.parseInt(args[0]);
+            if (resId < 1 || resId > restaurants.size()) {
+                System.out.println("Requested restaurant does not exist");
+            System.out.println("passed the return");
+                return;
+            }
+            restaurants.get(resId - 1).printMenu();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("missing arguments");
+        } catch (NumberFormatException e) {
+            System.out.println("incorrect inputs");
+        }
+    }
+
+    private void cartCommand(String[] args) {
+        try {
+            Customer customer = (Customer) user;
+            if (args.length == 0) {
+                System.out.println(customer.getCart().toString());
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("error");
+        }
+    }
+    
+    /////////////////////////
+    // COMMAND METHODS END //
+    /////////////////////////
 }

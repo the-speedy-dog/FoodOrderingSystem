@@ -1,4 +1,4 @@
-
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class Rating { 
@@ -7,9 +7,9 @@ public class Rating {
     private Queue<Integer> ratings;
 
     public Rating() {
-        this.rating = 0;
-        this.ratingTotal = 0;
-        this.ratings = new Queue<>();
+        rating = 0;
+        ratingTotal = 0;
+        ratings = new LinkedList<>();
     }
 
     public double getRating() {
@@ -28,6 +28,6 @@ public class Rating {
         ratings.add(newRating);
         ratingTotal += newRating;
 
-        this.rating = (double)ratingTotal / ratings.size();
+        rating = (double)ratingTotal / ratings.size();
     }
 }

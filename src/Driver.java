@@ -10,8 +10,7 @@ public class Driver extends User {
         return rating.getRating();
     }
 
-    // SHOULD NOT BE ACCESSIBLE BY DRIVER
     public void addRating(int rating) {
-        this.rating.rate(Math.clamp(rating, 1, 5));
+        this.rating.rate(rating);
     }
 }

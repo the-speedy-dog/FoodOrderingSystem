@@ -4,19 +4,44 @@ import java.util.Map;
 public class Order {
     private int id;
     private String customerName;
+    private String customerAddr;
     private String driverName;
     private Rating driverRating;
-    private String deliveryAddress;
     private Restaurant restaurant;
     private int totalItems;
     private double totalPrice;
     private HashMap<Integer, Integer> items; // order<index, amount>
 
-    public Order(int id, String customerName, String deliveryAddress, Restaurant restaurant) {
+    // constructor for when user is customer
+    public Order(int id, String customerName, String customerAddr) {
         this.id = id; // ID assigned by Restaurant or Random? TBD?
+        // could be random, or based on an array index ... 1, 2, 3, 4...
+
         this.customerName = customerName;
-        this.deliveryAddress = deliveryAddress;
-        this.driverName = "Not Assigned"; // Driver assigned by Restaurant
+        this.customerAddr = customerAddr;
+        totalItems = 0;
+        totalPrice = 0.0;
+        items = new HashMap<>();
+    }
+
+    // constructor for when user is driver
+    public Order(
+        int id,
+        String customerName,
+        String customerAddr,
+        String driverName,
+        Rating driverRating,
+        Restaurant restaurant
+        // TODO: add implementation for randomizing a customers order
+        // (after predetermined customers for when user is driver)
+    ) {
+        this.id = id; // ID assigned by Restaurant or Random? TBD?
+        // could be random, or based on an array index ... 1, 2, 3, 4...
+
+        this.customerName = customerName;
+        this.customerAddr = customerAddr;
+        this.driverName = driverName;
+        this.driverRating = driverRating;
         this.restaurant = restaurant;
         totalItems = 0;
         totalPrice = 0.0;
@@ -31,7 +56,11 @@ public class Order {
         return restaurant;
     }
 
-    public int size() { // To make consistent with other Java data structures
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public int size() {
         return totalItems;
     }
 
@@ -69,7 +98,7 @@ public class Order {
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("| Order number "+id);
+        str.append("| Order number " + id);
         str.append("| ");
 
         for (Map.Entry<Integer, Integer> entry : items.entrySet()) {
