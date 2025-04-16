@@ -16,7 +16,9 @@ public class Customer extends User {
     }
 
     public void submitOrder() {
-        getOrders().add(cart);
-        cart = new Order(0, getName(), address); // temp id 0
+        // Add cart to list of previous orders
+        getOrders().add(cart); 
+        // Adds cart to previous orders
+        cart = new Order(12345, getName(), address); 
     }
 }

@@ -11,6 +11,13 @@ public class Order {
     private int totalItems;
     private double totalPrice;
     private HashMap<Integer, Integer> items; // order<index, amount>
+    private Status status;
+
+    public enum Status {
+        IN_CART,
+        IN_PROGRESS,
+        COMPLETE
+    }
 
     // constructor for when user is customer
     public Order(int id, String customerName, String customerAddr) {
@@ -43,9 +50,10 @@ public class Order {
         this.driverName = driverName;
         this.driverRating = driverRating;
         this.restaurant = restaurant;
-        totalItems = 0;
-        totalPrice = 0.0;
-        items = new HashMap<>();
+        this.totalItems = 0;
+        this.totalPrice = 0.0;
+        this.items = new HashMap<>();
+        this.status = IN_CART;
     }
 
     public int getId() {
