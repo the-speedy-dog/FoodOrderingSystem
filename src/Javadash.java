@@ -31,6 +31,26 @@ public class Javadash {
                 obj -> restaurantCommand((String[]) obj)
             )
         );
+        handler.commands.add(
+            new Command(
+                new ArrayList<String>(Arrays.asList("cart", "c")),
+                new ArrayList<ArrayList<String>>(
+                    Arrays.asList(
+                        new ArrayList<String>(
+                            Arrays.asList("add", "rm")
+                        ),
+                        new ArrayList<String>(
+                            Arrays.asList("item_id")
+                        ),
+                        new ArrayList<String>(
+                            Arrays.asList("count")
+                        )
+                    )
+                ),
+                "Cart command, more to add",
+                obj -> cartCommand((String[]) obj)
+            )
+        );
 
         handler.loop();
 
@@ -38,11 +58,6 @@ public class Javadash {
         scnr.close();
     }
 
-    private void restaurantCommand(String[] args) {
-        int resId = Integer.parseInt(args[0]);
-        restaurants.get(resId).printMenu();
-    }
-    
     // init user
     private void initUser(Scanner scnr) {
         // get name
@@ -120,4 +135,44 @@ public class Javadash {
         );
         restaurants.add(new Restaurant("Novo", novoMenu, 4.6, 1329, 3));
     }
+
+    ///////////////////////////
+    // COMMAND METHODS START //
+    ///////////////////////////
+
+    private void restaurantCommand(String[] args) {
+
+        // could try catch every function that could break
+        // for better errors or could wrap it all in try catch
+        // like what i currently have, but will not give more
+        // info than either missing args or incorrect input types
+        try {
+            int resId = Integer.parseInt(args[0]);
+            if (resId < 1 || resId > restaurants.size()) {
+                System.out.println("Requested restaurant does not exist");
+            System.out.println("passed the return");
+                return;
+            }
+            restaurants.get(resId - 1).printMenu();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("missing arguments");
+        } catch (NumberFormatException e) {
+            System.out.println("incorrect inputs");
+        }
+    }
+
+    private void cartCommand(String[] args) {
+        try {
+            Customer customer = (Customer) user;
+            if (args.length == 0) {
+                System.out.println(customer.getCart().toString());
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("error");
+        }
+    }
+    
+    /////////////////////////
+    // COMMAND METHODS END //
+    /////////////////////////
 }

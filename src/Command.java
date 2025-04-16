@@ -3,6 +3,7 @@ import java.util.function.Consumer;
 
 public class Command {
     private ArrayList<String> names;
+    private ArrayList<ArrayList<String>> modifiers;
     private String description;
     private Consumer<String[]> action;
 
@@ -12,6 +13,19 @@ public class Command {
         Consumer<String[]> action
     ) {
         this.names = names;
+        this.description = description;
+        this.action = action;
+        modifiers = new ArrayList<>();
+    }
+
+    public Command(
+        ArrayList<String> names,
+        ArrayList<ArrayList<String>> modifiers,
+        String description,
+        Consumer<String[]> action
+    ) {
+        this.names = names;
+        this.modifiers = modifiers;
         this.description = description;
         this.action = action;
     }
@@ -25,8 +39,20 @@ public class Command {
             System.out.printf(
                 "%s%s",
                 names.get(i),
-                i == names.size()-1 ? "\n" : ", "
+                i == names.size()-1 ? " " : ", "
             );
+        }
+        for (int i = 0; i < modifiers.size(); i++) {
+            ArrayList<String> mod = modifiers.get(i);
+            System.out.print("<");
+            for (int j = 0; j < mod.size(); j++) {
+                System.out.printf(
+                    "%s%s",
+                    mod.get(j),
+                    j == mod.size()-1 ? "" : ", "
+                );
+            }
+            System.out.printf(">%s", i == modifiers.size()-1 ? "\n" : " ");
         }
         System.out.println(" - " + description);
     }
