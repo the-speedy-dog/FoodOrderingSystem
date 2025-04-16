@@ -4,12 +4,12 @@ import java.util.function.Consumer;
 public class Command {
     private ArrayList<String> names;
     private String description;
-    private Consumer<Object[]> action;
+    private Consumer<String[]> action;
 
     public Command(
         ArrayList<String> names,
         String description,
-        Consumer<Object[]> action
+        Consumer<String[]> action
     ) {
         this.names = names;
         this.description = description;
@@ -28,7 +28,7 @@ public class Command {
                 i == names.size()-1 ? "\n" : ", "
             );
         }
-        System.out.println("\t" + description);
+        System.out.println(" - " + description);
     }
 
     public boolean includes(String name) {
@@ -40,7 +40,7 @@ public class Command {
         return false;
     }
 
-    public void run(Object... params) {
+    public void run(String... params) {
         action.accept(params);
     }
 }

@@ -22,10 +22,25 @@ public class Javadash {
 
         // command handler loop
         handler = new Handler(scnr);
+
+        // testing handler commands
+        handler.commands.add(
+            new Command(
+                new ArrayList<String>(Arrays.asList("restaurant", "res")),
+                "Print speicified restaurant's menu",
+                obj -> restaurantCommand((String[]) obj)
+            )
+        );
+
         handler.loop();
 
         // end swiftly
         scnr.close();
+    }
+
+    private void restaurantCommand(String[] args) {
+        int resId = Integer.parseInt(args[0]);
+        restaurants.get(resId).printMenu();
     }
     
     // init user
