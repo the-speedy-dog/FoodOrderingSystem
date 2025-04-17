@@ -36,7 +36,7 @@ public class Javadash {
                         )
                     )
                 ),
-                "Select a restaurant",
+                "Select a restaurant - Use no arguments to display available restaurants",
                 obj -> restaurantCommand((String[]) obj)
             ),
             /// Menu
@@ -153,7 +153,26 @@ public class Javadash {
                 new FoodItem("Soda", 5.00)
             )
         );
-        restaurants.add(new Restaurant("Novo", novoMenu, 4.6, 1329, 3));
+        restaurants.add(new Restaurant("Novo", novoMenu, 4));
+
+        ArrayList<FoodItem> mcBurgerMenu = new ArrayList<>(
+            Arrays.asList(
+                new FoodItem("McYummy Burger", 8.99),
+                new FoodItem("McNugs", 6.99),
+                new FoodItem("McTacos", 3.99),
+                new FoodItem("McFries", 2.99),
+                new FoodItem("McDrink", 4.99)
+            )
+        );
+        restaurants.add(new Restaurant("McBurger", mcBurgerMenu, 2));
+
+        ArrayList<FoodItem> burgerQueenMenu = new ArrayList<>(
+            Arrays.asList(
+                new FoodItem("'Whopper? I Barely Even Know Her' Meal", 14.99),
+                new FoodItem("Almost Food", 0.01)
+            )
+        );
+        restaurants.add(new Restaurant("Burger Queen", burgerQueenMenu, 3));
     }
 
     ///////////////////////////
@@ -163,14 +182,14 @@ public class Javadash {
     private void restaurantCommand(String[] args) {
 
         if (args.length == 0) {
-            System.out.println("\n| Available Restaurants:");
+            System.out.println("\n╔═ Available Restaurants:");
             for (int i = 0; i < restaurants.size(); i++) {
                 if (restaurants.get(i) == restaurant) {
-                    System.out.print(">");
+                    System.out.print("> ");
                 } else {
-                    System.out.print("| ");
+                    System.out.print("║ ");
                 }
-                System.out.println((i < 9 ? " " : "") + (i+1) + ": " + restaurant.getDetails());
+                System.out.println((i < 9 ? " " : "") + (i+1) + ": " + restaurants.get(i).getDetails());
             }
             System.out.println();
             return;

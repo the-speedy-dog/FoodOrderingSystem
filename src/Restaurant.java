@@ -10,8 +10,6 @@ public class Restaurant {
     public Restaurant(
         String name,
         ArrayList<FoodItem> menu,
-        double rating,
-        int ratingCount,
         int priceRank
     ) {
         this.name = name;
