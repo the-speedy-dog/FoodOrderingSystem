@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Javadash {
     private ArrayList<Restaurant> restaurants; 
+    private Restaurant restaurant;
     private User user;
     private Handler handler;
 
@@ -12,7 +13,7 @@ public class Javadash {
     }
 
     public void start() {
-        Restaurant restaurant = restaurants.get(0);
+        restaurant = restaurants.get(0);
         restaurant.printMenu();
         Scanner scnr = new Scanner(System.in);
 
@@ -28,8 +29,21 @@ public class Javadash {
             /// Restaurant
             new Command(
                 new ArrayList<String>(Arrays.asList("restaurant", "res")),
-                "Print speicified restaurant's menu",
+                new ArrayList<ArrayList<String>>(
+                    Arrays.asList(
+                        new ArrayList<String>(
+                            Arrays.asList("restaurant_id - int")
+                        )
+                    )
+                ),
+                "Select a restaurant",
                 obj -> restaurantCommand((String[]) obj)
+            ),
+            /// Menu
+            new Command(
+                new ArrayList<String>(Arrays.asList("menu","m")),
+                "Print selected restaurant's menu",
+                obj -> menuCommand()
             ),
             /// Cart
             new Command(
@@ -40,10 +54,10 @@ public class Javadash {
                             Arrays.asList("add", "rm")
                         ),
                         new ArrayList<String>(
-                            Arrays.asList("item_id")
+                            Arrays.asList("item_id - int")
                         ),
                         new ArrayList<String>(
-                            Arrays.asList("count")
+                            Arrays.asList("count - int")
                         )
                     )
                 ),
@@ -148,23 +162,33 @@ public class Javadash {
 
     private void restaurantCommand(String[] args) {
 
-        // could try catch every function that could break
-        // for better errors or could wrap it all in try catch
-        // like what i currently have, but will not give more
-        // info than either missing args or incorrect input types
-        try {
-            int resId = Integer.parseInt(args[0]);
-            if (resId < 1 || resId > restaurants.size()) {
-                System.out.println("Requested restaurant does not exist");
-            System.out.println("passed the return");
-                return;
+        if (args.length == 0) {
+            System.out.println("\n| Available Restaurants:");
+            for (int i = 0; i < restaurants.size(); i++) {
+                if (restaurants.get(i) == restaurant) {
+                    System.out.print(">");
+                } else {
+                    System.out.print("| ");
+                }
+                System.out.println((i < 9 ? " " : "") + (i+1) + ": " + restaurant.getDetails());
             }
-            restaurants.get(resId - 1).printMenu();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("missing arguments");
-        } catch (NumberFormatException e) {
-            System.out.println("incorrect inputs");
+            System.out.println();
+            return;
         }
+
+        int resId = Integer.parseInt(args[0]);
+        if (resId < 1 || resId > restaurants.size()) {
+            System.out.println("Requested restaurant does not exist");
+            System.out.println("passed the return");
+            return;
+        }
+        // Set current restaurant and print its menu
+        restaurant = restaurants.get(resId - 1);
+        restaurant.printMenu();
+    }
+
+    private void menuCommand() {
+        restaurant.printMenu();
     }
 
     private void cartCommand(String[] args) {
