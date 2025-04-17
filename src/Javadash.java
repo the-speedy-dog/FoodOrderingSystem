@@ -180,9 +180,19 @@ public class Javadash {
     ///////////////////////////
 
     private void restaurantCommand(String[] args) {
-
-        if (args.length == 0) {
-            System.out.println("\n╔═ Available Restaurants:");
+        // If args passed, try to switch restaurant
+        if (args.length != 0) {
+            int resId = Integer.parseInt(args[0]);
+            if (resId < 1 || resId > restaurants.size()) {
+                System.out.println("Requested restaurant does not exist");
+                System.out.println("passed the return");
+                return;
+            }
+            // Set current restaurant and print its menu
+            restaurant = restaurants.get(resId - 1);
+        }
+        // Display available restaurants
+        System.out.println("\n╔═ Available Restaurants:");
             for (int i = 0; i < restaurants.size(); i++) {
                 if (restaurants.get(i) == restaurant) {
                     System.out.print("> ");
@@ -193,17 +203,6 @@ public class Javadash {
             }
             System.out.println();
             return;
-        }
-
-        int resId = Integer.parseInt(args[0]);
-        if (resId < 1 || resId > restaurants.size()) {
-            System.out.println("Requested restaurant does not exist");
-            System.out.println("passed the return");
-            return;
-        }
-        // Set current restaurant and print its menu
-        restaurant = restaurants.get(resId - 1);
-        restaurant.printMenu();
     }
 
     private void menuCommand() {
