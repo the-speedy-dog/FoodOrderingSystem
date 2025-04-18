@@ -100,6 +100,8 @@ public class Order {
                 totalPrice -= itemPrice * amount;
                 totalItems -= amount;
             }
+        } else {
+            throw new IllegalArgumentException("Item does not exist!");
         }
     }
 
