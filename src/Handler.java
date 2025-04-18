@@ -60,7 +60,7 @@ public class Handler {
         while (running) {
             System.out.print("javadash > ");
             input = scnr.nextLine();
-            args = input.split(" ");
+            args = input.split("\\s+");
             command = args[0];
             args = Arrays.copyOfRange(args, 1, args.length);
 
