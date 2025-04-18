@@ -36,6 +36,16 @@ public class Handler {
         System.out.println();
     }
 
+    private void clear() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println("Could not clear screen!");
+        }
+    }
+
     private void quit() {
         running = false;
     }
@@ -44,7 +54,14 @@ public class Handler {
 
         
 
-        // add quit command here so it appears last
+        // add clear & quit command here so they appear last
+        commands.add(
+            new Command(
+                new ArrayList<String>(Arrays.asList("clear", "cls")),
+                "Clears the screen",
+                obj -> clear()
+            )
+        );
         commands.add(
             new Command(
                 new ArrayList<String>(Arrays.asList("quit", "q")),
