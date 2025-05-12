@@ -13,8 +13,8 @@ public class Javadash {
     }
 
     public void start() {
-        restaurant = restaurants.get(0);
-        restaurant.printMenu();
+        //restaurant = restaurants.get(0);
+        //restaurant.printMenu();
         Scanner scnr = new Scanner(System.in);
 
         initUser(scnr);
@@ -61,7 +61,7 @@ public class Javadash {
                         )
                     )
                 ),
-                "Cart command, more to add",
+                "Add or remove items from your cart - Use no arguments display cart",
                 obj -> cartCommand((String[]) obj)
             ),
             /// Clear 
@@ -130,7 +130,6 @@ public class Javadash {
     }
 
     // initialize all restaurants and menus
-    // TODO: add more restaurants
     private void initRestaurants() {
         restaurants = new ArrayList<Restaurant>();
 
@@ -198,27 +197,69 @@ public class Javadash {
         int resId = Integer.parseInt(args[0]);
         if (resId < 1 || resId > restaurants.size()) {
             System.out.println("Requested restaurant does not exist");
-            System.out.println("passed the return");
             return;
         }
         // Set current restaurant and print its menu
         restaurant = restaurants.get(resId - 1);
-        restaurant.printMenu();
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            customer.getCart().setRestaurant(restaurant);
+        }
+        restaurantCommand(new String[0]);
     }
 
     private void menuCommand() {
+        Customer customer = (Customer) user;
+        if (customer.getCart().getRestaurant() == null) {
+            System.out.println("Restaurant not set! Use 'res' command to choose a restaurant.");
+            return;
+        }
         restaurant.printMenu();
     }
 
     private void cartCommand(String[] args) {
         Customer customer = (Customer) user;
+
         if (args.length == 0) {
             System.out.println(customer.getCart().toString());
             return;
         }
-        
-        // Unhandled Input
-        throw new IllegalArgumentException(":(");
+        else if (args.length < 3) {
+            System.out.println("Not enough args");
+        }
+
+        if (customer.getCart().getRestaurant() == null) {
+            System.out.println("Restaurant not set! Use 'res' command to choose a restaurant.");
+            return;
+        }
+
+        int id = 0;
+        int count = 0;
+
+        if (args[0].contains("add")) {
+            id = Integer.parseInt(args[1]);
+            count = Integer.parseInt(args[2]);
+
+            try {
+                // Restaurant getItem call necessary, because addItem doesn't throw
+                System.out.println("Adding "+count+" "+restaurant.getItem(id).toString()); // If id does not exist, should throw
+                customer.getCart().addItem(id, count);
+            } catch (Exception e) {
+                System.out.println("Could not add item: Item not found");
+            }
+        } else if (args[0].contains("rm")) {
+            id = Integer.parseInt(args[1]);
+            count = Integer.parseInt(args[2]);
+            
+            try {
+                customer.getCart().removeItem(id, count); // Should throw if non-existent
+            } catch (Exception e) {
+                System.out.println(
+                    "Could not remove "+count+" "+
+                    restaurant.getItem(id).getName()+
+                    ": Item not found in cart");
+            }
+        }
     }
 
 

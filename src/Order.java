@@ -106,16 +106,24 @@ public class Order {
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("| Order number " + id);
-        str.append("| ");
+        str.append("╔═ Order number ");
+        str.append(id);
+        str.append(":\n║");
 
         for (Map.Entry<Integer, Integer> entry : items.entrySet()) {
             int index = (int)entry.getKey();
             int amount = (int)entry.getValue();
             for (int i = 0; i < amount; i++) {
-                str.append("| " + restaurant.getItem(index).toString());
+                str.append("\n║ ");
+                str.append("ID: ");
+                str.append(index);
+                str.append(" - ");
+                str.append(restaurant.getItem(index).toString());
             }
         }
+        str.append("\n║\n╚═ Total: ");
+        str.append(getTotalPrice());
+
         return str.toString();
     }
 }
