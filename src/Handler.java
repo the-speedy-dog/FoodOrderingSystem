@@ -66,11 +66,7 @@ public class Handler {
 
             for (Command cmd : commands) {
                 if (cmd.includes(command)) {
-                    try {
-                        cmd.run(args);
-                    } catch (Exception e) {
-
-                    }
+                    cmd.run(args);
                 }
             }
         }

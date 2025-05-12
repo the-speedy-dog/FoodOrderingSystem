@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Customer extends User {
     private String address;
     private Order cart;
@@ -19,6 +21,15 @@ public class Customer extends User {
         // Add cart to list of previous orders
         getOrders().add(cart); 
         // Adds cart to previous orders
-        cart = new Order(12345, getName(), address); 
+        cart = new Order(getOrders().size(), getName(), address); 
     }
+
+    public void displayPreviousOrders() {
+        ArrayList<Order> orders = getOrders();
+        for (Order order : orders) {
+            System.out.println();
+            order.toString();
+        }
+    }
+
 }

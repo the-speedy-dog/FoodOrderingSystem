@@ -30,4 +30,8 @@ public class Rating {
 
         rating = (double)ratingTotal / ratings.size();
     }
+
+    public String toString() {
+        return String.format("★ %.1f", getRating()); 
+    }
 }

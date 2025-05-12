@@ -105,6 +105,15 @@ public class Order {
         }
     }
 
+    public void printDriverDetails() {
+        if (driverName == null) {
+            System.out.println("No Driver Assigned!");
+            return;
+        } else {
+            System.out.println(driverName + ": " + driverRating.toString());
+        }
+    }
+
 
     public String toString() {
         StringBuilder str = new StringBuilder();
