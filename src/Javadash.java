@@ -228,7 +228,13 @@ public class Javadash {
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
             customer.getCart().setRestaurant(restaurant);
+            restaurantCommand(new String[0]);
+            if (customer.getCart().size() > 0) {
+                customer.getCart().reset();
+                System.out.println("Cart has been cleared because restaurant changed");
+            }
         }
+
         restaurantCommand(new String[0]);
     }
 

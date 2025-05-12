@@ -105,6 +105,10 @@ public class Order {
         }
     }
 
+    public void reset() {
+        this.items = new HashMap<>();
+    }
+
     public void printDriverDetails() {
         if (driverName == null) {
             System.out.println("No Driver Assigned!");
