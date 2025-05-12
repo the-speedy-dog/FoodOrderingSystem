@@ -24,53 +24,13 @@ public class Javadash {
         // command handler loop
         handler = new Handler(scnr);
 
-        // Passes a list of commands to Handler class to be processed
-        handler.addCommands(new ArrayList<Command>(Arrays.asList(
-            /// Restaurant
-            new Command(
-                new ArrayList<String>(Arrays.asList("restaurant", "res")),
-                new ArrayList<ArrayList<String>>(
-                    Arrays.asList(
-                        new ArrayList<String>(
-                            Arrays.asList("restaurant_id - int")
-                        )
-                    )
-                ),
-                "Select a restaurant - Use no arguments to display available restaurants",
-                obj -> restaurantCommand((String[]) obj)
-            ),
-            /// Menu
-            new Command(
-                new ArrayList<String>(Arrays.asList("menu","m")),
-                "Print selected restaurant's menu",
-                obj -> menuCommand()
-            ),
-            /// Cart
-            new Command(
-                new ArrayList<String>(Arrays.asList("cart", "c")),
-                new ArrayList<ArrayList<String>>(
-                    Arrays.asList(
-                        new ArrayList<String>(
-                            Arrays.asList("add", "rm")
-                        ),
-                        new ArrayList<String>(
-                            Arrays.asList("item_id - int")
-                        ),
-                        new ArrayList<String>(
-                            Arrays.asList("count - int")
-                        )
-                    )
-                ),
-                "Add or remove items from your cart - Use no arguments display cart",
-                obj -> cartCommand((String[]) obj)
-            ),
-            /// Clear 
-            new Command(
-                new ArrayList<String>(Arrays.asList("clear", "cls")),
-                "Clears the screen",
-                obj -> clearCommand()
-            )
-        )));
+        addUserCommands();
+
+        if (user instanceof Customer) {
+            addCustomerCommands();
+        } else {
+            addDriverCommands();
+        }
 
         handler.loop();
 
@@ -173,6 +133,70 @@ public class Javadash {
         );
         restaurants.add(new Restaurant("Burger Queen", burgerQueenMenu, 3));
     }
+    
+    /////////////////////////////
+    // ADD COMMANDS TO HANDLER //
+    /////////////////////////////
+
+    private void addUserCommands() {
+        // Passes a list of commands to Handler class to be processed
+        handler.addCommands(new ArrayList<Command>(Arrays.asList(
+            /// Restaurant
+            new Command(
+                new ArrayList<String>(Arrays.asList("restaurant", "res")),
+                new ArrayList<ArrayList<String>>(
+                    Arrays.asList(
+                        new ArrayList<String>(
+                            Arrays.asList("restaurant_id - int")
+                        )
+                    )
+                ),
+                "Select a restaurant - Use no arguments to display available restaurants",
+                obj -> restaurantCommand((String[]) obj)
+            ),
+            /// Clear 
+            new Command(
+                new ArrayList<String>(Arrays.asList("clear", "cls")),
+                "Clears the screen",
+                obj -> clearCommand()
+            )
+        )));
+    }
+
+    private void addCustomerCommands() {
+        handler.addCommands(new ArrayList<Command>(Arrays.asList(
+            /// Cart
+            new Command(
+                new ArrayList<String>(Arrays.asList("cart", "c")),
+                new ArrayList<ArrayList<String>>(
+                    Arrays.asList(
+                        new ArrayList<String>(
+                            Arrays.asList("add", "rm")
+                        ),
+                        new ArrayList<String>(
+                            Arrays.asList("item_id - int")
+                        ),
+                        new ArrayList<String>(
+                            Arrays.asList("count - int")
+                        )
+                    )
+                ),
+                "Add or remove items from your cart - Use no arguments display cart",
+                obj -> cartCommand((String[]) obj)
+            ),
+            /// Menu
+            new Command(
+                new ArrayList<String>(Arrays.asList("menu","m")),
+                "Print selected restaurant's menu",
+                obj -> menuCommand()
+            )
+        )));
+    }
+
+    private void addDriverCommands() {
+
+    }
+
 
     ///////////////////////////
     // COMMAND METHODS START //
