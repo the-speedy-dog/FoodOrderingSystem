@@ -24,12 +24,26 @@ public class Customer extends User {
         cart = new Order(getOrders().size(), getName(), address); 
     }
 
+    public void rateLastDriver(int rating) {
+        int size = getOrders().size();
+        if (size > 0) {
+            getOrders().get(size - 1).rateDriver(rating);
+            getOrders().get(size - 1).printDriverDetails();
+        } else {
+            throw new IllegalArgumentException("No Driver available!");
+        }
+    }
+
     public void displayPreviousOrders() {
         ArrayList<Order> orders = getOrders();
         for (Order order : orders) {
-            System.out.println();
-            order.toString();
+            System.out.println("══) "+order.getRestaurant().getName()+":");
+            System.out.println(order.toString()+"\n");
         }
+    }
+
+    public String toString() {
+        return "Customer: "+getName()+", "+address;
     }
 
 }

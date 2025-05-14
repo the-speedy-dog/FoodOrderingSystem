@@ -11,13 +11,6 @@ public class Order {
     private int totalItems;
     private double totalPrice;
     private HashMap<Integer, Integer> items; // order<index, amount>
-    private Status status;
-
-    public enum Status {
-        IN_CART,
-        IN_PROGRESS,
-        COMPLETE
-    }
 
     // constructor for when user is customer
     public Order(int id, String customerName, String customerAddr) {
@@ -39,12 +32,8 @@ public class Order {
         String driverName,
         Rating driverRating,
         Restaurant restaurant
-        // TODO: add implementation for randomizing a customers order
-        // (after predetermined customers for when user is driver)
     ) {
-        this.id = id; // ID assigned by Restaurant or Random? TBD?
-        // could be random, or based on an array index ... 1, 2, 3, 4...
-
+        this.id = id; 
         this.customerName = customerName;
         this.customerAddr = customerAddr;
         this.driverName = driverName;
@@ -53,7 +42,6 @@ public class Order {
         this.totalItems = 0;
         this.totalPrice = 0.0;
         this.items = new HashMap<>();
-        this.status = Status.IN_CART;
     }
 
     public int getId() {
@@ -76,7 +64,6 @@ public class Order {
         return totalPrice;
     }
 
-    // This structure creates a dependence on Restaurant's structure?
     public void addItem(int itemId, int amount) {  
         if (items.containsKey(itemId)) {
             items.put(itemId, items.get(itemId) + amount);
@@ -107,6 +94,23 @@ public class Order {
 
     public void reset() {
         this.items = new HashMap<>();
+        this.totalItems = 0;
+        this.totalPrice = 0;
+    }
+
+    public void assignDriver(Driver driver) {
+        this.driverName = driver.getName();
+        this.driverRating = driver.getRatingObject();
+    }
+
+    public void rateDriver(int rating) {
+        if (driverRating != null) {
+            driverRating.rate(rating);
+        }
+    }
+
+    public double getDriverRating() {
+        return driverRating.getRating();
     }
 
     public void printDriverDetails() {
@@ -116,6 +120,11 @@ public class Order {
         } else {
             System.out.println(driverName + ": " + driverRating.toString());
         }
+    }
+
+    public void printCustomerDetails() {
+        System.out.println("Customer: "+customerName+", "+customerAddr+" - "+restaurant.getName());
+        System.out.println();
     }
 
 
@@ -137,7 +146,7 @@ public class Order {
             }
         }
         str.append("\n║\n╚═ Total: ");
-        str.append(getTotalPrice());
+        str.append(String.format("%.2f", getTotalPrice()));
 
         return str.toString();
     }

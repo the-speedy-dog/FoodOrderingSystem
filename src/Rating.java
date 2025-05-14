@@ -21,7 +21,6 @@ public class Rating {
     }
 
     public void rate(int newRating) {
-        newRating = Math.clamp(newRating, 1, 5); // Limits from 1-5 Stars 
         if (ratings.size() == 10) {
             ratingTotal -= ratings.poll();
         }
