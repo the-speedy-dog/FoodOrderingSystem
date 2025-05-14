@@ -16,10 +16,12 @@ public class Driver extends User {
 
     public void deliverOrder() {
         this.hasOrder = false;
+        getOrders().add(currOrder);
         this.currOrder = null;
     }
 
     public boolean hasOrder() {
+        
         return this.hasOrder;
     }
 

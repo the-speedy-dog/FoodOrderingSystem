@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Javadash {
-    private ArrayList<Restaurant> restaurants; 
+    private ArrayList<Restaurant> restaurants;
     private Stack<Driver> availableDrivers;
     private Queue<Order> pendingOrders;
     private Restaurant restaurant;
@@ -48,13 +48,12 @@ public class Javadash {
 
     private void initCustomer() {
         initDrivers(new ArrayList<Driver>(Arrays.asList(
-            new Driver("Bob"),
-            new Driver("Bill"),
-            new Driver("Joe"),
-            new Driver("Greg"),
-            new Driver("Coolguy123"),
-            new Driver("imaDriver")
-        )));
+                new Driver("Bob"),
+                new Driver("Bill"),
+                new Driver("Joe"),
+                new Driver("Greg"),
+                new Driver("Coolguy123"),
+                new Driver("imaDriver"))));
     }
 
     private void initDrivers(ArrayList<Driver> drivers) {
@@ -67,15 +66,18 @@ public class Javadash {
         Driver driver = (Driver) user;
         Random random = new Random();
         initCustomers(new ArrayList<Order>(Arrays.asList(
-            new Order(1, "Bill", "123 Road", driver.getName(), driver.getRatingObject(), restaurants.get(random.nextInt(restaurants.size()))),
-            new Order(2, "Bob", "456 Lane", driver.getName(), driver.getRatingObject(), restaurants.get(random.nextInt(restaurants.size()))),
-            new Order(3, "Joe", "House St.", driver.getName(), driver.getRatingObject(), restaurants.get(random.nextInt(restaurants.size()))),
-            new Order(4, "House MD", "House St.", driver.getName(), driver.getRatingObject(), restaurants.get(random.nextInt(restaurants.size())))
-        )));
+                new Order(1, "Bill", "123 Road", driver.getName(), driver.getRatingObject(),
+                        restaurants.get(random.nextInt(restaurants.size()))),
+                new Order(2, "Bob", "456 Lane", driver.getName(), driver.getRatingObject(),
+                        restaurants.get(random.nextInt(restaurants.size()))),
+                new Order(3, "Joe", "House St.", driver.getName(), driver.getRatingObject(),
+                        restaurants.get(random.nextInt(restaurants.size()))),
+                new Order(4, "House MD", "House St.", driver.getName(), driver.getRatingObject(),
+                        restaurants.get(random.nextInt(restaurants.size()))))));
     }
 
     private void initCustomers(ArrayList<Order> orders) {
-        for (Order order: orders) {
+        for (Order order : orders) {
             pendingOrders.add(order);
         }
     }
@@ -124,10 +126,9 @@ public class Javadash {
         System.out.println();
         System.out.println("Javadash v1.0.0");
         System.out.printf(
-            "Logged in as %s (%s)\n",
-            user.getName(),
-            user instanceof Customer ? "Customer" : "Driver"
-        );
+                "Logged in as %s (%s)\n",
+                user.getName(),
+                user instanceof Customer ? "Customer" : "Driver");
         System.out.println("Type \"help\" for command list");
     }
 
@@ -136,49 +137,44 @@ public class Javadash {
         restaurants = new ArrayList<Restaurant>();
 
         ArrayList<FoodItem> novoMenu = new ArrayList<>(
-            Arrays.asList(
-                new FoodItem("House Salad", 9.00),
-                new FoodItem("Samosas", 16.00),
-                new FoodItem("Beet & Burrata", 14.00),
-                new FoodItem("Meze", 23.00),
-                new FoodItem("Ahi Nachos", 22.00),
-                new FoodItem("Burrata", 14.00),
-                new FoodItem("Calamari", 20.00),
-                new FoodItem("Risotto", 29.00),
-                new FoodItem("Prime Ribeye", 56.00),
-                new FoodItem("Filet", 56.00),
-                new FoodItem("Lamb Shank", 38.00),
-                new FoodItem("King Salmon", 42.00),
-                new FoodItem("Espresso", 4.50),
-                new FoodItem("Hot Tea", 4.50),
-                new FoodItem("Soda", 5.00)
-            )
-        );
+                Arrays.asList(
+                        new FoodItem("House Salad", 9.00),
+                        new FoodItem("Samosas", 16.00),
+                        new FoodItem("Beet & Burrata", 14.00),
+                        new FoodItem("Meze", 23.00),
+                        new FoodItem("Ahi Nachos", 22.00),
+                        new FoodItem("Burrata", 14.00),
+                        new FoodItem("Calamari", 20.00),
+                        new FoodItem("Risotto", 29.00),
+                        new FoodItem("Prime Ribeye", 56.00),
+                        new FoodItem("Filet", 56.00),
+                        new FoodItem("Lamb Shank", 38.00),
+                        new FoodItem("King Salmon", 42.00),
+                        new FoodItem("Espresso", 4.50),
+                        new FoodItem("Hot Tea", 4.50),
+                        new FoodItem("Soda", 5.00)));
         restaurants.add(new Restaurant("Novo", novoMenu, 4));
 
         ArrayList<FoodItem> mcBurgerMenu = new ArrayList<>(
-            Arrays.asList(
-                new FoodItem("McYummy Burger", 8.99),
-                new FoodItem("McNugs", 6.99),
-                new FoodItem("McTacos", 3.99),
-                new FoodItem("McFries", 2.99),
-                new FoodItem("McDrink", 4.99)
-            )
-        );
+                Arrays.asList(
+                        new FoodItem("McYummy Burger", 8.99),
+                        new FoodItem("McNugs", 6.99),
+                        new FoodItem("McTacos", 3.99),
+                        new FoodItem("McFries", 2.99),
+                        new FoodItem("McDrink", 4.99)));
         restaurants.add(new Restaurant("McBurger", mcBurgerMenu, 2));
 
         ArrayList<FoodItem> burgerQueenMenu = new ArrayList<>(
-            Arrays.asList(
-                new FoodItem("'Whopper? I Barely Even Know Her' Meal", 14.99),
-                new FoodItem("Almost Food", 0.01)
-            )
-        );
+                Arrays.asList(
+                        new FoodItem("'Whopper? I Barely Even Know Her' Meal", 14.99),
+                        new FoodItem("Almost Food", 0.01)));
         restaurants.add(new Restaurant("Burger Queen", burgerQueenMenu, 3));
     }
 
     public void tryAssignDriver() {
         if (availableDrivers.size() < 1) {
-            initDrivers(new ArrayList<Driver>(Arrays.asList(new Driver("Filler_Driver")))); // Add new fake driver to the reserve
+            initDrivers(new ArrayList<Driver>(Arrays.asList(new Driver("Filler_Driver")))); // Add new fake driver to
+                                                                                            // the reserve
         }
         if (pendingOrders.size() > 0) {
             Order order = pendingOrders.poll();
@@ -187,7 +183,7 @@ public class Javadash {
             order.assignDriver(driver);
         }
     }
-    
+
     /////////////////////////////
     // ADD COMMANDS TO HANDLER //
     /////////////////////////////
@@ -195,113 +191,106 @@ public class Javadash {
     private void addUserCommands() {
         // Passes a list of commands to Handler class to be processed
         handler.addCommands(new ArrayList<Command>(Arrays.asList(
-            /// Restaurant
-            new Command(
-                new ArrayList<String>(Arrays.asList("restaurant", "res")),
-                new ArrayList<ArrayList<String>>(
-                    Arrays.asList(
-                        new ArrayList<String>(
-                            Arrays.asList("restaurant_id - int")
-                        )
-                    )
-                ),
-                "Select a restaurant - Use no arguments to display available restaurants",
-                obj -> restaurantCommand((String[]) obj)
-            ),
-            /// Clear 
-            new Command(
-                new ArrayList<String>(Arrays.asList("clear", "cls")),
-                "Clears the screen",
-                obj -> clearCommand()
-            )
-        )));
+                /// Restaurant
+                new Command(
+                        new ArrayList<String>(Arrays.asList("restaurant", "res")),
+                        new ArrayList<ArrayList<String>>(
+                                Arrays.asList(
+                                        new ArrayList<String>(
+                                                Arrays.asList("restaurant_id - int")))),
+                        "Select a restaurant - Use no arguments to display available restaurants",
+                        obj -> restaurantCommand((String[]) obj)),
+                /// Clear
+                new Command(
+                        new ArrayList<String>(Arrays.asList("clear", "cls")),
+                        "Clears the screen",
+                        obj -> clearCommand()))));
     }
 
     private void addCustomerCommands() {
         handler.addCommands(new ArrayList<Command>(Arrays.asList(
-            /// Menu
-            new Command(
-                new ArrayList<String>(Arrays.asList("menu","m")),
-                "Print selected restaurant's menu",
-                obj -> menuCommand()
-            ), 
-            /// Cart
-            new Command(
-                new ArrayList<String>(Arrays.asList("cart", "c")),
-                new ArrayList<ArrayList<String>>(
-                    Arrays.asList(
-                        new ArrayList<String>(
-                            Arrays.asList("add", "rm")
-                        ),
-                        new ArrayList<String>(
-                            Arrays.asList("item_id - int")
-                        ),
-                        new ArrayList<String>(
-                            Arrays.asList("count - int")
-                        )
-                    )
-                ),
-                "Add or remove items from your cart - Use no arguments display cart",
-                obj -> cartCommand((String[]) obj)
-            ),
-            /// Submit Order
-            new Command(
-                new ArrayList<String>(Arrays.asList("submit", "sub")),
-                "Submits current order",
-                obj -> submitOrderCommand()
-            ),
-            /// Print Previous Orders
-            new Command(
-                new ArrayList<String>(Arrays.asList("receipt", "rec")),
-                "Prints receipts of the previous orders",
-                obj -> printPreviousOrderCommand()
-            ),
-            /// Rate Driver
-            new Command(
-                new ArrayList<String>(Arrays.asList("rate", "r")),
-                new ArrayList<ArrayList<String>>(
-                    Arrays.asList(
-                        new ArrayList<String>(
-                            Arrays.asList("rating - int(1-5)")
-                        )
-                    )
-                ),
-                "Rates the last submitted order's driver",
-                obj -> rateDriverCommand((String[]) obj)
-            )
-        )));
+                /// Menu
+                new Command(
+                        new ArrayList<String>(Arrays.asList("menu", "m")),
+                        "Print selected restaurant's menu",
+                        obj -> menuCommand()),
+                /// Cart
+                new Command(
+                        new ArrayList<String>(Arrays.asList("cart", "c")),
+                        new ArrayList<ArrayList<String>>(
+                                Arrays.asList(
+                                        new ArrayList<String>(
+                                                Arrays.asList("add", "rm")),
+                                        new ArrayList<String>(
+                                                Arrays.asList("item_id - int")),
+                                        new ArrayList<String>(
+                                                Arrays.asList("count - int")))),
+                        "Add or remove items from your cart - Use no arguments display cart",
+                        obj -> cartCommand((String[]) obj)),
+                /// Submit Order
+                new Command(
+                        new ArrayList<String>(Arrays.asList("submit", "sub")),
+                        "Submits current order",
+                        obj -> submitOrderCommand()),
+                /// Print Previous Orders
+                new Command(
+                        new ArrayList<String>(Arrays.asList("receipt", "rec")),
+                        "Prints receipts of the previous orders",
+                        obj -> printPreviousOrderCommand()),
+                /// Rate Driver
+                new Command(
+                        new ArrayList<String>(Arrays.asList("rate", "r")),
+                        new ArrayList<ArrayList<String>>(
+                                Arrays.asList(
+                                        new ArrayList<String>(
+                                                Arrays.asList("rating - int(1-5)")))),
+                        "Rates the last submitted order's driver",
+                        obj -> rateDriverCommand((String[]) obj)))));
     }
 
     private void addDriverCommands() {
         handler.addCommands(new ArrayList<Command>(Arrays.asList(
-            new Command(
-                new ArrayList<String>(Arrays.asList("get", "g")),
-                "Gets a new order",
-                obj -> getNewOrderCommand()
-            ),
-            new Command(
-                new ArrayList<String>(Arrays.asList("pickup", "p")),
-                "Picks up the order from the restaurant",
-                obj -> pickupOrderCommand()
-            ),
-            new Command(
-                new ArrayList<String>(Arrays.asList("deliver", "d")),
-                "Delivers the order",
-                obj -> deliverOrderCommand()
-            ),
-            new Command(
-                new ArrayList<String>(Arrays.asList("info", "i")),
-                "Displays customer's order info",
-                obj -> viewOrderInfoCommand()
-            )
-        )));
+                new Command(
+                        new ArrayList<String>(Arrays.asList("get", "g")),
+                        "Gets a new order",
+                        obj -> getNewOrderCommand()),
+                new Command(
+                        new ArrayList<String>(Arrays.asList("pickup", "p")),
+                        "Picks up the order from the restaurant",
+                        obj -> pickupOrderCommand()),
+                new Command(
+                        new ArrayList<String>(Arrays.asList("deliver", "d")),
+                        "Delivers the order",
+                        obj -> deliverOrderCommand()),
+                new Command(
+                        new ArrayList<String>(Arrays.asList("info", "i")),
+                        "Displays customer's order info",
+                        obj -> viewOrderInfoCommand()),
+                new Command(
+                        new ArrayList<String>(Arrays.asList("receipt", "rec")),
+                        "Displays previous fulfilled orders",
+                        obj -> printDriverPreviousOrderCommand()))));
     }
-
 
     ///////////////////////////
     // COMMAND METHODS START //
     ///////////////////////////
 
+    private void printDriverPreviousOrderCommand() {
+        Driver driver = (Driver) user;
+
+        if (driver.getOrders().size() == 0) {
+            System.out.println("No previous orders!");
+            return;
+        }
+
+        System.out.println();
+
+        for (Order order : driver.getOrders()) {
+            System.out.println("Order " + order.getId() + ":");
+            order.printCustomerDetails();
+        }
+    }
 
     private void pickupOrderCommand() {
         Driver driver = (Driver) user;
@@ -315,7 +304,7 @@ public class Javadash {
             System.out.println("Order already picked up. Go deliver it!");
             return;
         }
-        
+
         if (restaurant != driver.getOrder().getRestaurant()) {
             System.out.println("Wrong restaurant!");
             return;
@@ -357,11 +346,12 @@ public class Javadash {
         }
 
         availableDrivers.push(driver);
-        
+
         if (pendingOrders.size() < 1) {
             pendingOrders.add(new Order(Math.abs(new Random().nextInt()),
-                        "Filler_Customer", "Filler_Address", 
-                        driver.getName(), driver.getRatingObject(), restaurants.get(new Random().nextInt(restaurants.size()))));
+                    "Filler_Customer", "Filler_Address",
+                    driver.getName(), driver.getRatingObject(),
+                    restaurants.get(new Random().nextInt(restaurants.size()))));
         }
 
         tryAssignDriver();
@@ -376,7 +366,7 @@ public class Javadash {
         if (customer.getOrders().size() < 1) {
             System.out.println("No previous orders to display!");
             return;
-        } 
+        }
 
         customer.displayPreviousOrders();
     }
@@ -385,7 +375,8 @@ public class Javadash {
         Customer customer = (Customer) user;
 
         if (args.length == 0) {
-            customer.getOrders().get(customer.getOrders().size()-1).printDriverDetails();
+            customer.getOrders().get(customer.getOrders().size() - 1).printDriverDetails();
+            return;
         }
 
         int rating = Integer.parseInt(args[0]);
@@ -412,11 +403,11 @@ public class Javadash {
 
         pendingOrders.add(customer.getCart());
         System.out.println("Order submitted!");
-        
+
         tryAssignDriver();
-        
+
         customer.submitOrder();
-        
+
         System.out.println("Order Delivered!");
 
         restaurant = null;
@@ -432,7 +423,7 @@ public class Javadash {
                 } else {
                     System.out.print("║ ");
                 }
-                System.out.println((i < 9 ? " " : "") + (i+1) + ": " + restaurants.get(i).getDetails());
+                System.out.println((i < 9 ? " " : "") + (i + 1) + ": " + restaurants.get(i).getDetails());
             }
             System.out.println();
             return;
@@ -445,7 +436,6 @@ public class Javadash {
         }
         // Set current restaurant and print its menu
         restaurant = restaurants.get(resId - 1);
-        
 
         restaurantCommand(new String[0]);
 
@@ -474,8 +464,7 @@ public class Javadash {
         if (args.length == 0) {
             System.out.println(customer.getCart().toString());
             return;
-        }
-        else if (args.length < 3) {
+        } else if (args.length < 3) {
             System.out.println("Not enough args");
         }
 
@@ -493,7 +482,8 @@ public class Javadash {
 
             try {
                 // Restaurant getItem call necessary, because addItem doesn't throw
-                System.out.println("Adding "+count+" "+restaurant.getItem(id).toString()); // If id does not exist, should throw
+                System.out.println("Adding " + count + " " + restaurant.getItem(id).toString()); // If id does not
+                                                                                                 // exist, should throw
                 customer.getCart().addItem(id, count);
             } catch (Exception e) {
                 System.out.println("Could not add item: Item not found");
@@ -501,18 +491,17 @@ public class Javadash {
         } else if (args[0].contains("rm")) {
             id = Integer.parseInt(args[1]);
             count = Integer.parseInt(args[2]);
-            
+
             try {
                 customer.getCart().removeItem(id, count); // Should throw if non-existent
             } catch (Exception e) {
                 System.out.println(
-                    "Could not remove "+count+" "+
-                    restaurant.getItem(id).getName()+
-                    ": Item not found in cart");
+                        "Could not remove " + count + " " +
+                                restaurant.getItem(id).getName() +
+                                ": Item not found in cart");
             }
         }
     }
-
 
     private void clearCommand() {
         try {
@@ -526,7 +515,6 @@ public class Javadash {
         }
     }
 
-    
     /////////////////////////
     // COMMAND METHODS END //
     /////////////////////////
